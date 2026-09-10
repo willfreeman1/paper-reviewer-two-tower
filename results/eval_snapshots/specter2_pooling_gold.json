@@ -1,6 +1,6 @@
 {
   "trained_on": null,
-  "notes": "Scored on CMU Spearman (n=participants) and LR-Bench pairwise accuracy (ties skipped). vector_mean is the headline recipe. score_* collapse per-paper cosines, not averaged vectors. Leftover idea (do not build unless asked): RATE-style keyword profiles.",
+  "notes": "Scored on CMU Spearman and LR-Bench pairwise accuracy (ties skipped). vector_mean averages fingerprints first, then compares. score_* collapse per-paper similarities instead.",
   "variants": {
     "vector_mean": {
       "cmu": {
@@ -97,11 +97,5 @@
         }
       }
     }
-  },
-  "sanity_vector_mean_matches_headline": {
-    "cmu_ok": true,
-    "lrb_ok": true,
-    "expected_cmu": 0.434,
-    "expected_lrb": 0.732
   }
 }

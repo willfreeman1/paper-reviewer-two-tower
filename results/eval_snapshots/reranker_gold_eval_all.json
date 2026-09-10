@@ -38,6 +38,5 @@
     }
   },
   "openalex_resolved": 3512,
-  "notes": "OpenAlex fields/citations/years used where a title lookup succeeded. Qwen tags from catalog title match plus aspect_profiles_gold_qwen3.jsonl. reranker_no_cite never saw citation clues; reranker_all_clues is the product tree.",
-  "elapsed_s": 51.269124031066895
+  "notes": "Extra OpenAlex and topic/method tags used only where a lookup succeeded. reranker_no_cite did not use citation clues."
 }

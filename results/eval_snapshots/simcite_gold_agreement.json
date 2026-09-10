@@ -321,5 +321,5 @@
     "majority+name": 49,
     "name_only": 3
   },
-  "notes": "Trained-on vs scored-on: this is not a model score. It asks whether the SimCite / cite-all author list for a gold paper contains the human-labeled person. Only rows where we could join that person to an OpenAlex author ID and the paper has a fetched bibliography are scored."
+  "notes": "Not a model score. Asks whether the bibliography author list for a paper contains the human-labeled person, among rows that could be joined to an OpenAlex author ID and had a fetched bibliography."
 }
