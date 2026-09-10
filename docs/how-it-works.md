@@ -193,15 +193,23 @@ same key: did a homemade right person land in the top 10?
 | Second pass, citation clues hidden | 60.9% |
 | Second pass, citation clues on | 77.3% (hits the cap) |
 
+The 51% / 47% first-pass rows are from the training-run snapshot
+(`results/eval_snapshots/two_tower_eval.json`). Re-running the mixer
+script with `--eval_only` pastes those numbers; it does not search the
+catalog again. A later tree-training log has first-pass top-10 at
+51.5% on the same style of quiz. I report **51%**.
+
 The 77.3% tree’s most used clue, by a huge margin, was “does the paper
 cite this person?” Useful as a product feature; inflated as a score on
 **this** exam.
 
 I also listed every cited author I could find and compared that list to
-the CMU 1–5 ratings. Only **15%** of people who had rated themselves 4
-or 5 appeared. Nobody who had rated themselves 1 or 2 appeared. The
-bibliography points the right way and still misses most people who said
-they were a good fit. That was a name-list check, not a model score.
+the CMU 1–5 ratings. That check covers **52 of 58** people (the ones I
+could match by name) and **343** paper–person pairs. Of the 4–5 pairs,
+**15%** had that person in the cited-author list. Of the 1–2 pairs,
+**none** did. The bibliography points the right way and still misses
+most people who said they were a good fit. That was a name-list check,
+not a model score.
 
 ## What I tried and stopped
 
@@ -241,7 +249,7 @@ human quizzes, or training/scoring the two passes.
 
 | Script | Role |
 |---|---|
-| `extract_cmu.py` | Unpack the CMU zip into `spike/data/gold_cmu/` |
+| `extract_cmu.py` | Unpack the CMU zip to `spike/data/gold_cmu/data/` |
 | `cmu_gold_eval.py` | Word overlap / SPECTER2 / BM25 on the CMU 1–5 survey |
 | `lr_bench_eval.py` | Same methods on the LR-Bench A-vs-B quiz |
 | `eval_specter2_pooling.py` | How to combine a person’s many paper fingerprints |

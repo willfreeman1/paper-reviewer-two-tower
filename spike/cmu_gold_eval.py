@@ -48,8 +48,15 @@ def paper_text(p):
 
 
 def load_evaluations():
+    eval_csv = DATA_DIR / "evaluations.csv"
+    if not eval_csv.exists():
+        raise FileNotFoundError(
+            f"CMU survey not found at {eval_csv}. Download the zip from "
+            "https://github.com/niharshah/goldstandard-reviewer-paper-match "
+            "into spike/data/, then run: python spike/extract_cmu.py"
+        )
     rows = []
-    with open(DATA_DIR / "evaluations.csv", encoding="utf-8") as f:
+    with open(eval_csv, encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             rows.append(row)

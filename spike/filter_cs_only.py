@@ -48,7 +48,7 @@ def main():
         json.dump(cs_author_map, f)
 
     print(f"Papers before CS filter: {len(papers)}")
-    print(f"Papers after CS filter (any topic tagged CS): {len(cs_papers)} "
+    print(f"Papers after CS filter (primary topic CS): {len(cs_papers)} "
           f"({100 * len(cs_papers) / len(papers):.1f}%)")
     print(f"Authors before: {len(author_paper_map)}")
     print(f"Authors after CS filter + re-applying >=5 papers: {len(cs_author_map)} "

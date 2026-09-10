@@ -66,7 +66,6 @@ Two human tests. **LR-Bench** is an A-vs-B quiz (chance is 50%). **CMU**
 is 58 people rating papers 1–5; the number is how well my ranking
 matches theirs (−1 to +1; 0 means no relationship).
 
-
 | Method                                                                   | Trained on            | LR-Bench                | CMU   |
 | ------------------------------------------------------------------------ | --------------------- | ----------------------- | ----- |
 | Word overlap (rare words count more)                                     | nothing               | **75.8%** (1,392 pairs) | 0.427 |
@@ -146,9 +145,12 @@ SPECTER2 downloads from Hugging Face the first time you run it
 Word overlap on the CMU survey (58 people) is the part a clone can
 re-run today:
 
-1. Download [CMU gold](https://github.com/niharshah/goldstandard-reviewer-paper-match)
-   and unpack it to `spike/data/gold_cmu/`.
-2. `python spike/cmu_gold_eval.py --method tfidf`
+1. Download the zip from [CMU gold](https://github.com/niharshah/goldstandard-reviewer-paper-match)
+   and put it in `spike/data/` (for example `gold_cmu_data.zip`).
+2. `python spike/extract_cmu.py`  
+   That writes `spike/data/gold_cmu/data/evaluations.csv` (the extra
+   `data/` folder is how the survey is shipped).
+3. `python spike/cmu_gold_eval.py --method tfidf`
 
 SPECTER2 on the same files: `--method specter2`.
 
