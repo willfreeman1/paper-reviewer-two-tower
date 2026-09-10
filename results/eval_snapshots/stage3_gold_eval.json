@@ -1,0 +1,14 @@
+{
+  "model": "gpt-4o-mini",
+  "cache": "spike\\data\\tower\\committee_cache.jsonl",
+  "cmu": {
+    "mean_spearman": 0.4116657904286156,
+    "n": 58,
+    "n_pairs": 477
+  },
+  "lr_bench": {
+    "pairwise_accuracy": 0.7379421221864951,
+    "n": 1244,
+    "n_cases": 1396
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "trained_on": null,
+  "notes": "Scored on CMU Spearman (n=participants) and LR-Bench pairwise accuracy (ties skipped). vector_mean is the headline recipe. score_* collapse per-paper cosines, not averaged vectors. Leftover idea (do not build unless asked): RATE-style keyword profiles.",
+  "variants": {
+    "vector_mean": {
+      "cmu": {
+        "mean_spearman": 0.4341403255770357,
+        "n": 58
+      },
+      "lr_bench": {
+        "pairwise_accuracy": 0.7320402298850575,
+        "n": 1392,
+        "ties_skipped": true,
+        "paper_centric": {
+          "pairwise_accuracy": 0.7788461538461539,
+          "n": 208
+        },
+        "reviewer_centric": {
+          "pairwise_accuracy": 0.7238175675675675,
+          "n": 1184
+        }
+      }
+    },
+    "score_mean": {
+      "cmu": {
+        "mean_spearman": 0.4341403255770357,
+        "n": 58
+      },
+      "lr_bench": {
+        "pairwise_accuracy": 0.7248563218390804,
+        "n": 1392,
+        "ties_skipped": true,
+        "paper_centric": {
+          "pairwise_accuracy": 0.7307692307692307,
+          "n": 208
+        },
+        "reviewer_centric": {
+          "pairwise_accuracy": 0.7238175675675675,
+          "n": 1184
+        }
+      }
+    },
+    "score_max": {
+      "cmu": {
+        "mean_spearman": 0.4704450180432256,
+        "n": 58
+      },
+      "lr_bench": {
+        "pairwise_accuracy": 0.7301587301587301,
+        "n": 1386,
+        "ties_skipped": true,
+        "paper_centric": {
+          "pairwise_accuracy": 0.7673267326732673,
+          "n": 202
+        },
+        "reviewer_centric": {
+          "pairwise_accuracy": 0.7238175675675675,
+          "n": 1184
+        }
+      }
+    },
+    "score_p75": {
+      "cmu": {
+        "mean_spearman": 0.44516436880986177,
+        "n": 58
+      },
+      "lr_bench": {
+        "pairwise_accuracy": 0.7341954022988506,
+        "n": 1392,
+        "ties_skipped": true,
+        "paper_centric": {
+          "pairwise_accuracy": 0.75,
+          "n": 208
+        },
+        "reviewer_centric": {
+          "pairwise_accuracy": 0.731418918918919,
+          "n": 1184
+        }
+      }
+    },
+    "score_top3": {
+      "cmu": {
+        "mean_spearman": 0.48091060670669805,
+        "n": 58
+      },
+      "lr_bench": {
+        "pairwise_accuracy": 0.7311286843997125,
+        "n": 1391,
+        "ties_skipped": true,
+        "paper_centric": {
+          "pairwise_accuracy": 0.7294685990338164,
+          "n": 207
+        },
+        "reviewer_centric": {
+          "pairwise_accuracy": 0.731418918918919,
+          "n": 1184
+        }
+      }
+    }
+  },
+  "sanity_vector_mean_matches_headline": {
+    "cmu_ok": true,
+    "lrb_ok": true,
+    "expected_cmu": 0.434,
+    "expected_lrb": 0.732
+  }
+}

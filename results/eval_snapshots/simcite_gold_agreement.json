@@ -1,0 +1,325 @@
+{
+  "coverage": {
+    "cmu_joined": 52,
+    "cmu_cases": 58,
+    "lrb_unique_profiles_joined": 58,
+    "lrb_unique_profiles": 275,
+    "works_fetched": 48367,
+    "query_papers": 1152
+  },
+  "variants": {
+    "cite_all": {
+      "cmu": {
+        "n_pairs": 343,
+        "n_participants_scored": 52,
+        "hit_rate": 0.12244897959183673,
+        "mean_expertise_when_hit": 4.375,
+        "mean_expertise_when_miss": 3.653654485049834,
+        "hit_rate_by_expertise": {
+          "1-2": {
+            "n": 41,
+            "hit_rate": 0.0
+          },
+          "3": {
+            "n": 29,
+            "hit_rate": 0.034482758620689655
+          },
+          "4-5": {
+            "n": 273,
+            "hit_rate": 0.15018315018315018
+          }
+        },
+        "spearman_hit": 0.34565716398594976,
+        "spearman_score": 0.34565716398594976,
+        "n_spearman": 23
+      },
+      "lr_bench_pc": {
+        "n": 2,
+        "correct": 0,
+        "wrong": 0,
+        "tie": 2,
+        "accuracy_incl_ties_as_wrong": 0.0,
+        "accuracy_among_decided": null
+      },
+      "lr_bench_rc": {
+        "n": 28,
+        "correct": 4,
+        "wrong": 0,
+        "tie": 24,
+        "accuracy_incl_ties_as_wrong": 0.14285714285714285,
+        "accuracy_among_decided": 1.0
+      },
+      "mean_author_set_size": 140.17738791423002,
+      "n_query_papers_with_labels": 513
+    },
+    "simcite": {
+      "cmu": {
+        "n_pairs": 343,
+        "n_participants_scored": 52,
+        "hit_rate": 0.08746355685131195,
+        "mean_expertise_when_hit": 4.416666666666667,
+        "mean_expertise_when_miss": 3.6773162939297124,
+        "hit_rate_by_expertise": {
+          "1-2": {
+            "n": 41,
+            "hit_rate": 0.0
+          },
+          "3": {
+            "n": 29,
+            "hit_rate": 0.034482758620689655
+          },
+          "4-5": {
+            "n": 273,
+            "hit_rate": 0.10622710622710622
+          }
+        },
+        "spearman_hit": 0.42226924660915255,
+        "spearman_score": 0.41657120919845436,
+        "n_spearman": 17
+      },
+      "lr_bench_pc": {
+        "n": 2,
+        "correct": 0,
+        "wrong": 0,
+        "tie": 2,
+        "accuracy_incl_ties_as_wrong": 0.0,
+        "accuracy_among_decided": null
+      },
+      "lr_bench_rc": {
+        "n": 28,
+        "correct": 1,
+        "wrong": 0,
+        "tie": 27,
+        "accuracy_incl_ties_as_wrong": 0.03571428571428571,
+        "accuracy_among_decided": 1.0
+      },
+      "mean_author_set_size": 39.955165692007796,
+      "n_query_papers_with_labels": 513
+    },
+    "recency_h2": {
+      "cmu": {
+        "n_pairs": 343,
+        "n_participants_scored": 52,
+        "hit_rate": 0.08163265306122448,
+        "mean_expertise_when_hit": 4.473214285714286,
+        "mean_expertise_when_miss": 3.676984126984127,
+        "hit_rate_by_expertise": {
+          "1-2": {
+            "n": 41,
+            "hit_rate": 0.0
+          },
+          "3": {
+            "n": 29,
+            "hit_rate": 0.034482758620689655
+          },
+          "4-5": {
+            "n": 273,
+            "hit_rate": 0.0989010989010989
+          }
+        },
+        "spearman_hit": 0.36583628952397523,
+        "spearman_score": 0.3667324358153401,
+        "n_spearman": 19
+      },
+      "lr_bench_pc": {
+        "n": 2,
+        "correct": 0,
+        "wrong": 0,
+        "tie": 2,
+        "accuracy_incl_ties_as_wrong": 0.0,
+        "accuracy_among_decided": null
+      },
+      "lr_bench_rc": {
+        "n": 28,
+        "correct": 1,
+        "wrong": 0,
+        "tie": 27,
+        "accuracy_incl_ties_as_wrong": 0.03571428571428571,
+        "accuracy_among_decided": 1.0
+      },
+      "mean_author_set_size": 43.92397660818713,
+      "n_query_papers_with_labels": 513
+    },
+    "recency_h3": {
+      "cmu": {
+        "n_pairs": 343,
+        "n_participants_scored": 52,
+        "hit_rate": 0.08163265306122448,
+        "mean_expertise_when_hit": 4.473214285714286,
+        "mean_expertise_when_miss": 3.676984126984127,
+        "hit_rate_by_expertise": {
+          "1-2": {
+            "n": 41,
+            "hit_rate": 0.0
+          },
+          "3": {
+            "n": 29,
+            "hit_rate": 0.034482758620689655
+          },
+          "4-5": {
+            "n": 273,
+            "hit_rate": 0.0989010989010989
+          }
+        },
+        "spearman_hit": 0.36583628952397523,
+        "spearman_score": 0.3667324358153401,
+        "n_spearman": 19
+      },
+      "lr_bench_pc": {
+        "n": 2,
+        "correct": 0,
+        "wrong": 0,
+        "tie": 2,
+        "accuracy_incl_ties_as_wrong": 0.0,
+        "accuracy_among_decided": null
+      },
+      "lr_bench_rc": {
+        "n": 28,
+        "correct": 1,
+        "wrong": 0,
+        "tie": 27,
+        "accuracy_incl_ties_as_wrong": 0.03571428571428571,
+        "accuracy_among_decided": 1.0
+      },
+      "mean_author_set_size": 43.92397660818713,
+      "n_query_papers_with_labels": 513
+    },
+    "recency_h5": {
+      "cmu": {
+        "n_pairs": 343,
+        "n_participants_scored": 52,
+        "hit_rate": 0.08163265306122448,
+        "mean_expertise_when_hit": 4.473214285714286,
+        "mean_expertise_when_miss": 3.676984126984127,
+        "hit_rate_by_expertise": {
+          "1-2": {
+            "n": 41,
+            "hit_rate": 0.0
+          },
+          "3": {
+            "n": 29,
+            "hit_rate": 0.034482758620689655
+          },
+          "4-5": {
+            "n": 273,
+            "hit_rate": 0.0989010989010989
+          }
+        },
+        "spearman_hit": 0.36583628952397523,
+        "spearman_score": 0.3667324358153401,
+        "n_spearman": 19
+      },
+      "lr_bench_pc": {
+        "n": 2,
+        "correct": 0,
+        "wrong": 0,
+        "tie": 2,
+        "accuracy_incl_ties_as_wrong": 0.0,
+        "accuracy_among_decided": null
+      },
+      "lr_bench_rc": {
+        "n": 28,
+        "correct": 1,
+        "wrong": 0,
+        "tie": 27,
+        "accuracy_incl_ties_as_wrong": 0.03571428571428571,
+        "accuracy_among_decided": 1.0
+      },
+      "mean_author_set_size": 43.98245614035088,
+      "n_query_papers_with_labels": 513
+    },
+    "hub_drop": {
+      "cmu": {
+        "n_pairs": 343,
+        "n_participants_scored": 52,
+        "hit_rate": 0.07871720116618076,
+        "mean_expertise_when_hit": 4.5,
+        "mean_expertise_when_miss": 3.6772151898734178,
+        "hit_rate_by_expertise": {
+          "1-2": {
+            "n": 41,
+            "hit_rate": 0.0
+          },
+          "3": {
+            "n": 29,
+            "hit_rate": 0.034482758620689655
+          },
+          "4-5": {
+            "n": 273,
+            "hit_rate": 0.09523809523809523
+          }
+        },
+        "spearman_hit": 0.43757118724781346,
+        "spearman_score": 0.4271668491277389,
+        "n_spearman": 17
+      },
+      "lr_bench_pc": {
+        "n": 2,
+        "correct": 0,
+        "wrong": 0,
+        "tie": 2,
+        "accuracy_incl_ties_as_wrong": 0.0,
+        "accuracy_among_decided": null
+      },
+      "lr_bench_rc": {
+        "n": 28,
+        "correct": 1,
+        "wrong": 0,
+        "tie": 27,
+        "accuracy_incl_ties_as_wrong": 0.03571428571428571,
+        "accuracy_among_decided": 1.0
+      },
+      "mean_author_set_size": 39.01364522417154,
+      "n_query_papers_with_labels": 513
+    },
+    "recency_h3_hub": {
+      "cmu": {
+        "n_pairs": 343,
+        "n_participants_scored": 52,
+        "hit_rate": 0.07871720116618076,
+        "mean_expertise_when_hit": 4.5092592592592595,
+        "mean_expertise_when_miss": 3.6764240506329116,
+        "hit_rate_by_expertise": {
+          "1-2": {
+            "n": 41,
+            "hit_rate": 0.0
+          },
+          "3": {
+            "n": 29,
+            "hit_rate": 0.034482758620689655
+          },
+          "4-5": {
+            "n": 273,
+            "hit_rate": 0.09523809523809523
+          }
+        },
+        "spearman_hit": 0.379527499569093,
+        "spearman_score": 0.37783625036567703,
+        "n_spearman": 19
+      },
+      "lr_bench_pc": {
+        "n": 2,
+        "correct": 0,
+        "wrong": 0,
+        "tie": 2,
+        "accuracy_incl_ties_as_wrong": 0.0,
+        "accuracy_among_decided": null
+      },
+      "lr_bench_rc": {
+        "n": 28,
+        "correct": 1,
+        "wrong": 0,
+        "tie": 27,
+        "accuracy_incl_ties_as_wrong": 0.03571428571428571,
+        "accuracy_among_decided": 1.0
+      },
+      "mean_author_set_size": 43.097465886939574,
+      "n_query_papers_with_labels": 513
+    }
+  },
+  "cmu_join_how": {
+    "majority+name": 49,
+    "name_only": 3
+  },
+  "notes": "Trained-on vs scored-on: this is not a model score. It asks whether the SimCite / cite-all author list for a gold paper contains the human-labeled person. Only rows where we could join that person to an OpenAlex author ID and the paper has a fetched bibliography are scored."
+}

@@ -1,0 +1,357 @@
+{
+  "k": 100,
+  "n_train_papers": 20000,
+  "elapsed_s": 109.96714925765991,
+  "full": {
+    "stage1": {
+      "recall@10": 0.5153333333333333,
+      "recall@50": 0.702,
+      "mrr": 0.3418209930254127,
+      "n_papers": 1500
+    },
+    "reranker": {
+      "recall@10": 0.7726666666666666,
+      "recall@50": 0.7726666666666666,
+      "mrr": 0.7571063806380638,
+      "n_papers": 1500
+    },
+    "positive_in_shortlist": 0.7726666666666666,
+    "feature_importance": [
+      {
+        "feature": "paper_cites_reviewer",
+        "gain": 1003034.0,
+        "split": 7
+      },
+      {
+        "feature": "log_citations",
+        "gain": 8294.383046865463,
+        "split": 55
+      },
+      {
+        "feature": "stage1_rank_inv",
+        "gain": 694.1118545532227,
+        "split": 23
+      },
+      {
+        "feature": "subfield_share",
+        "gain": 299.09047627449036,
+        "split": 12
+      },
+      {
+        "feature": "shared_ref_jaccard",
+        "gain": 293.69174337387085,
+        "split": 16
+      },
+      {
+        "feature": "qwen_methods_jaccard",
+        "gain": 252.37044489383698,
+        "split": 14
+      },
+      {
+        "feature": "tfidf_cosine",
+        "gain": 178.8052396774292,
+        "split": 16
+      },
+      {
+        "feature": "stage1_score",
+        "gain": 175.61613082885742,
+        "split": 15
+      },
+      {
+        "feature": "qwen_methods_coverage",
+        "gain": 147.76259994506836,
+        "split": 3
+      },
+      {
+        "feature": "n_subfields_norm",
+        "gain": 142.64128971099854,
+        "split": 10
+      },
+      {
+        "feature": "frac_papers_last_3y",
+        "gain": 142.14826035499573,
+        "split": 10
+      },
+      {
+        "feature": "n_papers_norm",
+        "gain": 114.05807065963745,
+        "split": 9
+      },
+      {
+        "feature": "qwen_topics_jaccard",
+        "gain": 66.08551013469696,
+        "split": 9
+      },
+      {
+        "feature": "qwen_topics_coverage",
+        "gain": 57.04656982421875,
+        "split": 4
+      },
+      {
+        "feature": "qwen_apps_jaccard",
+        "gain": 48.41460990905762,
+        "split": 3
+      },
+      {
+        "feature": "year_gap",
+        "gain": 14.55383014678955,
+        "split": 2
+      },
+      {
+        "feature": "same_topic",
+        "gain": 8.332079887390137,
+        "split": 1
+      },
+      {
+        "feature": "qwen_apps_coverage",
+        "gain": 2.2481000423431396,
+        "split": 1
+      },
+      {
+        "feature": "same_subfield",
+        "gain": 0.0,
+        "split": 0
+      },
+      {
+        "feature": "reviewer_cites_paper",
+        "gain": 0.0,
+        "split": 0
+      }
+    ],
+    "model": "spike\\data\\tower\\reranker.txt"
+  },
+  "no_cite_clues": {
+    "stage1": {
+      "recall@10": 0.5153333333333333,
+      "recall@50": 0.702,
+      "mrr": 0.3418209930254127,
+      "n_papers": 1500
+    },
+    "reranker": {
+      "recall@10": 0.6086666666666667,
+      "recall@50": 0.7486666666666667,
+      "mrr": 0.42863824963100844,
+      "n_papers": 1500
+    },
+    "positive_in_shortlist": 0.7726666666666666,
+    "feature_importance": [
+      {
+        "feature": "tfidf_cosine",
+        "gain": 519638.8711924553,
+        "split": 949
+      },
+      {
+        "feature": "stage1_rank_inv",
+        "gain": 186553.23659563065,
+        "split": 730
+      },
+      {
+        "feature": "log_citations",
+        "gain": 68958.23211145401,
+        "split": 1354
+      },
+      {
+        "feature": "qwen_methods_coverage",
+        "gain": 46045.88419866562,
+        "split": 69
+      },
+      {
+        "feature": "qwen_topics_coverage",
+        "gain": 42263.40153980255,
+        "split": 154
+      },
+      {
+        "feature": "stage1_score",
+        "gain": 20789.483310699463,
+        "split": 715
+      },
+      {
+        "feature": "qwen_topics_jaccard",
+        "gain": 13720.991723775864,
+        "split": 427
+      },
+      {
+        "feature": "year_gap",
+        "gain": 13576.26491189003,
+        "split": 335
+      },
+      {
+        "feature": "same_topic",
+        "gain": 9828.274722099304,
+        "split": 194
+      },
+      {
+        "feature": "qwen_apps_coverage",
+        "gain": 7234.37992477417,
+        "split": 106
+      },
+      {
+        "feature": "qwen_apps_jaccard",
+        "gain": 6769.019260168076,
+        "split": 417
+      },
+      {
+        "feature": "n_papers_norm",
+        "gain": 5960.20029592514,
+        "split": 458
+      },
+      {
+        "feature": "qwen_methods_jaccard",
+        "gain": 5118.288095712662,
+        "split": 346
+      },
+      {
+        "feature": "subfield_share",
+        "gain": 4251.72541642189,
+        "split": 440
+      },
+      {
+        "feature": "frac_papers_last_3y",
+        "gain": 3810.0958528518677,
+        "split": 360
+      },
+      {
+        "feature": "n_subfields_norm",
+        "gain": 1612.52498793602,
+        "split": 173
+      },
+      {
+        "feature": "same_subfield",
+        "gain": 30.237930297851562,
+        "split": 3
+      },
+      {
+        "feature": "paper_cites_reviewer",
+        "gain": 0.0,
+        "split": 0
+      },
+      {
+        "feature": "reviewer_cites_paper",
+        "gain": 0.0,
+        "split": 0
+      },
+      {
+        "feature": "shared_ref_jaccard",
+        "gain": 0.0,
+        "split": 0
+      }
+    ],
+    "model": "spike\\data\\tower\\reranker_no_cite.txt"
+  },
+  "stage1": {
+    "recall@10": 0.5153333333333333,
+    "recall@50": 0.702,
+    "mrr": 0.3418209930254127,
+    "n_papers": 1500
+  },
+  "reranker": {
+    "recall@10": 0.7726666666666666,
+    "recall@50": 0.7726666666666666,
+    "mrr": 0.7571063806380638,
+    "n_papers": 1500
+  },
+  "positive_in_shortlist": 0.7726666666666666,
+  "feature_importance": [
+    {
+      "feature": "paper_cites_reviewer",
+      "gain": 1003034.0,
+      "split": 7
+    },
+    {
+      "feature": "log_citations",
+      "gain": 8294.383046865463,
+      "split": 55
+    },
+    {
+      "feature": "stage1_rank_inv",
+      "gain": 694.1118545532227,
+      "split": 23
+    },
+    {
+      "feature": "subfield_share",
+      "gain": 299.09047627449036,
+      "split": 12
+    },
+    {
+      "feature": "shared_ref_jaccard",
+      "gain": 293.69174337387085,
+      "split": 16
+    },
+    {
+      "feature": "qwen_methods_jaccard",
+      "gain": 252.37044489383698,
+      "split": 14
+    },
+    {
+      "feature": "tfidf_cosine",
+      "gain": 178.8052396774292,
+      "split": 16
+    },
+    {
+      "feature": "stage1_score",
+      "gain": 175.61613082885742,
+      "split": 15
+    },
+    {
+      "feature": "qwen_methods_coverage",
+      "gain": 147.76259994506836,
+      "split": 3
+    },
+    {
+      "feature": "n_subfields_norm",
+      "gain": 142.64128971099854,
+      "split": 10
+    },
+    {
+      "feature": "frac_papers_last_3y",
+      "gain": 142.14826035499573,
+      "split": 10
+    },
+    {
+      "feature": "n_papers_norm",
+      "gain": 114.05807065963745,
+      "split": 9
+    },
+    {
+      "feature": "qwen_topics_jaccard",
+      "gain": 66.08551013469696,
+      "split": 9
+    },
+    {
+      "feature": "qwen_topics_coverage",
+      "gain": 57.04656982421875,
+      "split": 4
+    },
+    {
+      "feature": "qwen_apps_jaccard",
+      "gain": 48.41460990905762,
+      "split": 3
+    },
+    {
+      "feature": "year_gap",
+      "gain": 14.55383014678955,
+      "split": 2
+    },
+    {
+      "feature": "same_topic",
+      "gain": 8.332079887390137,
+      "split": 1
+    },
+    {
+      "feature": "qwen_apps_coverage",
+      "gain": 2.2481000423431396,
+      "split": 1
+    },
+    {
+      "feature": "same_subfield",
+      "gain": 0.0,
+      "split": 0
+    },
+    {
+      "feature": "reviewer_cites_paper",
+      "gain": 0.0,
+      "split": 0
+    }
+  ],
+  "model": "spike\\data\\tower\\reranker.txt"
+}

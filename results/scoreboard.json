@@ -1,0 +1,59 @@
+{
+  "frozen_on": "2026-09-10",
+  "purpose": "Official public numbers. GitHub and any README must match this file. The fine-tooth code check compares scripts to these rows.",
+  "rounding": "Percents shown to one decimal (73.2% means 0.732). Spearman shown to three decimals. Full precision is in eval_snapshots/.",
+  "human_leaderboard": {
+    "how_to_read": "LR-Bench is pairwise accuracy: share of A-vs-B pairs we get right (chance 50%; ties skipped). CMU is mean Spearman correlation of our ranking vs 1-5 self-ratings (n=58 people). Lead with humans, not the homemade catalog quiz.",
+    "rows": [
+      {
+        "method": "TF-IDF (word overlap; rare words count more)",
+        "trained_on": null,
+        "lr_bench": { "display": "75.8%", "pairwise_accuracy": 0.7579022988505747, "n": 1392, "source": "eval_snapshots/lr_bench_results_tfidf.json" },
+        "cmu": { "display": "0.427", "mean_spearman": 0.42708514981734086, "n": 58, "source": "eval_snapshots/cmu_gold_results_tfidf.json" }
+      },
+      {
+        "method": "Frozen SPECTER2 (average each person's paper stamps, then compare)",
+        "trained_on": null,
+        "lr_bench": { "display": "73.2%", "pairwise_accuracy": 0.7320402298850575, "n": 1392, "source": "eval_snapshots/specter2_pooling_gold.json variants.vector_mean" },
+        "cmu": { "display": "0.434", "mean_spearman": 0.4341403255770357, "n": 58, "source": "eval_snapshots/specter2_pooling_gold.json variants.vector_mean" },
+        "notes": "Canonical SPECTER2. An older file cmu_gold_results_specter2.json has 0.435; do not mix it into the headline. Pooling variants (closest paper, top-3) did not beat this on LR-Bench plus CMU together."
+      },
+      {
+        "method": "First pass (SPECTER2 plus small add-on), trained on homemade citation key",
+        "trained_on": "vanilla SimCite",
+        "lr_bench": { "display": "72.1%", "pairwise_accuracy": 0.7211469534050179, "n": 1395, "source": "eval_snapshots/two_tower_eval.json" },
+        "cmu": { "display": "0.381", "mean_spearman": 0.3807174876324481, "n": 58, "source": "eval_snapshots/two_tower_eval.json" }
+      },
+      {
+        "method": "Second pass tree, citation clues off (fair copy)",
+        "trained_on": "vanilla SimCite",
+        "lr_bench": { "display": "70.8%", "pairwise_accuracy": 0.7077363896848138, "n": 1396, "source": "eval_snapshots/reranker_gold_eval.json reranker_no_cite" },
+        "cmu": { "display": "0.438", "mean_spearman": 0.43829324009008974, "n": 58, "source": "eval_snapshots/reranker_gold_eval.json reranker_no_cite" },
+        "notes": "On human tests this scores a tiny list the humans already gave. It is not 'search 15000 people then reorder 100'."
+      },
+      {
+        "method": "Second pass tree, citation clues off, trained on recency+topic+method homemade key",
+        "trained_on": "SimCite with recency, topic, and method knobs",
+        "lr_bench": { "display": "71.3%", "pairwise_accuracy": 0.7134670487106017, "n": 1396, "source": "eval_snapshots/reranker_gold_eval_all.json reranker_no_cite" },
+        "cmu": { "display": "0.435", "mean_spearman": 0.43492666662050733, "n": 58, "source": "eval_snapshots/reranker_gold_eval_all.json reranker_no_cite" }
+      },
+      {
+        "method": "Language-model votes as a standalone scorer (gpt-4o-mini)",
+        "trained_on": null,
+        "lr_bench": { "display": "73.8%", "pairwise_accuracy": 0.7379421221864951, "n": 1244, "n_cases": 1396, "source": "eval_snapshots/stage3_gold_eval.json" },
+        "cmu": { "display": "0.412", "mean_spearman": 0.4116657904286156, "n": 58, "source": "eval_snapshots/stage3_gold_eval.json" },
+        "notes": "Different n than SPECTER2 on LR-Bench. A wash, not a win. This is 'ask a language model to score the pair,' not 'feed votes into the tree on the last 15 names'."
+      }
+    ],
+    "do_not_write": "nothing clearly beats frozen SPECTER2",
+    "write_instead": "Nothing I trained beat untouched SPECTER2 on the human tests. Plain word overlap did beat it on LR-Bench (75.8% vs 73.2%) and nearly tied on CMU."
+  },
+  "catalog_quiz_not_headline": {
+    "what": "Homemade answer key: authors of similar papers this one cited. Did at least one of those people appear in the top 10 names? 1500 held-out catalog papers, ~15000 people.",
+    "untouched_SPECTER2_top10": { "display": "47%", "recall_at_10": 0.4673333333333333, "source": "eval_snapshots/two_tower_eval.json in_corpus_specter2" },
+    "trained_first_pass_top10": { "display": "51%", "recall_at_10": 0.51, "source": "eval_snapshots/two_tower_eval.json in_corpus_two_tower" },
+    "second_pass_citation_clues_off_top10": { "display": "60.9%", "recall_at_10": 0.6086666666666667, "source": "eval_snapshots/reranker_eval.json no_cite_clues.reranker" },
+    "second_pass_citation_clues_on_top10": { "display": "77.3%", "recall_at_10": 0.7726666666666666, "source": "eval_snapshots/reranker_eval.json full.reranker" },
+    "ceiling": { "display": "77.3%", "positive_in_first_pass_top_100": 0.7726666666666666, "source": "eval_snapshots/reranker_eval.json full.positive_in_shortlist", "meaning": "Share of papers where a homemade right person was already in the first pass's 100 names. The second pass cannot beat this." }
+  }
+}

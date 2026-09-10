@@ -1,0 +1,35 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# Catalog, fingerprints, gold downloads, trained weights, vote caches
+spike/data/
+*.jsonl
+*.pt
+*.bin
+*.npy
+
+# Run logs
+*.log
+*_log.txt
+*_log*.txt
+*_err.txt
+spike/embed_pid.txt
+spike/spot_check_output.txt
+
+# Root scratch dumps
+/test*.json
+
+# Local notes and editor/agent scratch — public docs are README.md + docs/
+GITHUB.md
+PLAIN_SUMMARY.md
+PROJECT_GUIDE.md
+BRIEF.md
+FEASIBILITY_MEMO.md
+reviewer-matching-research-notes.md
+work_record.md
+POOLING_CHECK.md
+portable-cursor-rules/
+.cursor/
+.specstory/

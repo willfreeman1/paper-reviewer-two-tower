@@ -1,0 +1,33 @@
+{
+  "checkpoint": "spike\\data\\tower\\two_tower.pt",
+  "in_corpus_two_tower": {
+    "recall@10": 0.51,
+    "recall@50": 0.7073333333333334,
+    "mrr": 0.3373254489466188,
+    "n_papers": 1500,
+    "mean_n_positives": 3.0446666666666666,
+    "source": "training-run final eval, not recomputed"
+  },
+  "in_corpus_specter2": {
+    "recall@10": 0.4673333333333333,
+    "recall@50": 0.6433333333333333,
+    "mrr": 0.3122878978395387,
+    "n_papers": 1500,
+    "mean_n_positives": 3.084,
+    "source": "training-run final eval, not recomputed"
+  },
+  "cmu": {
+    "tower_mean_spearman": 0.3807174876324481,
+    "specter2_flat_mean_spearman": 0.4341403255770357,
+    "specter2_weighted_mean_spearman": 0.35974310536341325,
+    "n": 58
+  },
+  "lr_bench": {
+    "tower_pairwise_accuracy": 0.7211469534050179,
+    "specter2_flat_pairwise_accuracy": 0.7320402298850575,
+    "specter2_weighted_pairwise_accuracy": 0.7320402298850575,
+    "n": 1395,
+    "specter2_flat_n": 1392,
+    "specter2_weighted_n": 1392
+  }
+}

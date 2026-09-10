@@ -1,0 +1,43 @@
+{
+  "cmu": {
+    "stage1": {
+      "mean_spearman": 0.3600163237898911,
+      "n": 58
+    },
+    "specter2": {
+      "mean_spearman": 0.4341403255770357,
+      "n": 58
+    },
+    "reranker_all_clues": {
+      "mean_spearman": 0.3677521040361524,
+      "n": 58
+    },
+    "reranker_no_cite": {
+      "mean_spearman": 0.43492666662050733,
+      "n": 58
+    },
+    "qwen_tagged_candidate_papers": 477,
+    "candidate_papers": 477
+  },
+  "lr_bench": {
+    "stage1": {
+      "pairwise_accuracy": 0.7214644651830582,
+      "n": 1393
+    },
+    "specter2": {
+      "pairwise_accuracy": 0.7320402298850575,
+      "n": 1392
+    },
+    "reranker_all_clues": {
+      "pairwise_accuracy": 0.7004470938897168,
+      "n": 1342
+    },
+    "reranker_no_cite": {
+      "pairwise_accuracy": 0.7134670487106017,
+      "n": 1396
+    }
+  },
+  "openalex_resolved": 3512,
+  "notes": "OpenAlex fields/citations/years used where a title lookup succeeded. Qwen tags from catalog title match plus aspect_profiles_gold_qwen3.jsonl. reranker_no_cite never saw citation clues; reranker_all_clues is the product tree.",
+  "elapsed_s": 51.269124031066895
+}

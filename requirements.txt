@@ -1,0 +1,15 @@
+pyalex
+pandas
+numpy
+scipy
+torch
+tqdm
+requests
+scikit-learn
+rank_bm25
+openai
+pypdf
+python-dotenv
+lightgbm
+transformers
+adapters
