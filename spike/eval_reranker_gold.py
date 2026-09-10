@@ -1,15 +1,13 @@
 """
-Score Stage 2 on the human gold sets (CMU + LR-Bench).
+Score the second-pass tree on CMU + LR-Bench.
 
-These papers are not in our OpenAlex catalog, so most Stage-2 clues are
-missing: no citation web, no field tags, almost no Qwen tags (only the
-~9% whose titles match a catalog paper). What we *can* use: Stage-1
-closeness, word overlap (TF-IDF fitted the same way as training),
-recency when a year is present, and profile size.
+These papers are not in the OpenAlex catalog, so most pair clues are
+missing. What is available: first-pass closeness, word overlap, recency
+when a year is present, and profile size.
 
-The tree cannot fetch new people here — gold already gives the short
-list (about 10 rated papers on CMU; two options on LR-Bench). We just
-ask the editor to score each pair and see if that ranking matches humans.
+The human tests already give a short list (about 10 papers on CMU; two
+options on LR-Bench). This scores those pairs; it does not search 15,000
+people.
 """
 from __future__ import annotations
 
@@ -113,7 +111,7 @@ def tags_for(p, title_to_sets, gold_by_text):
 
 
 def fit_tfidf():
-    print("Fitting TF-IDF on the catalog (same settings as Stage 2 training) ...", flush=True)
+    print("Fitting TF-IDF on the catalog (same settings as second-pass training) ...", flush=True)
     texts = []
     with open(DATA_DIR / "papers_final.jsonl", encoding="utf-8") as f:
         for line in f:

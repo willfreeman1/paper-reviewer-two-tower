@@ -1,18 +1,10 @@
 """
-Author disambiguation check, v2 -- redone on the CS-only-filtered data (the
-original spot-check in spot_check_authors.py ran before the CS-scope bug fix,
-so some of what looked like "merged identity" back then may have just been
-that bug leaking in non-CS papers).
+Author disambiguation check on the CS-only catalog.
 
-Two parts:
-1. Automated "topic coherence" score for EVERY author (cheap, no manual
-   reading needed): what fraction of an author's papers share their single
-   most common subfield? A real person tends to concentrate in a handful of
-   related subfields; someone spanning many unrelated CS subfields with no
-   dominant one is a plausible merged-identity flag (or a genuinely broad
-   interdisciplinary researcher -- manual review below tells us which).
-2. Manual-read sample: the worst-coherence authors (most likely problem
-   cases) + a random sample (baseline for comparison), printed side by side.
+1. Topic coherence for every author: share of papers in their most common
+   subfield. A real person usually concentrates; a mix of unrelated
+   subfields can mean a merged identity (or a genuinely broad researcher).
+2. Print the worst-coherence authors plus a random sample for a manual look.
 """
 import io
 import json

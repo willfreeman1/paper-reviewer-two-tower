@@ -1,4 +1,4 @@
-"""Unpack the CMU gold zip into spike/data/gold_cmu/. One-off helper."""
+"""Unpack the CMU gold zip into spike/data/gold_cmu/."""
 from pathlib import Path
 import zipfile
 

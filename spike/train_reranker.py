@@ -1,10 +1,10 @@
 """
-Stage-2 re-ranker: take the two-tower's top-K people per paper, build
-pairwise clues (shared field, citations, word overlap, Qwen tag overlap),
-train a tree model to reorder that shortlist.
+Second-pass tree: take the first pass's top-K people per paper, build
+pairwise clues (shared field, citations, word overlap, topic/method tags),
+and train a tree to reorder that shortlist.
 
-The tree only sees people the receptionist already proposed, so it cannot
-rescue a match that Stage 1 ranked below K.
+The tree only sees people the first pass already proposed, so it cannot
+rescue a match ranked below K.
 """
 from __future__ import annotations
 
@@ -227,7 +227,7 @@ def pair_tfidf_cosine(paper_x, rev_x, p_rows, r_rows):
 
 def stage1_topk(store, model, paper_rows, k=K):
     device = torch.device("cpu")
-    print(f"Encoding {len(paper_rows)} papers + all reviewers (Stage 1) ...", flush=True)
+    print(f"Encoding {len(paper_rows)} papers + all reviewers (first pass) ...", flush=True)
     rev_z = encode_all_reviewers(model, store, device)
     p_rows = np.asarray(paper_rows, dtype=np.int64)
     p_z = np.zeros((len(p_rows), model.text_dim), dtype=np.float32)
@@ -435,7 +435,7 @@ def main():
     ap.add_argument("--lgb_val_papers", type=int, default=2000)
     ap.add_argument("--eval_papers", type=int, default=1500)
     ap.add_argument("--pairs", default=None)
-    ap.add_argument("--tower", default=None, help="Stage-1 mixer checkpoint")
+    ap.add_argument("--tower", default=None, help="first-pass mixer checkpoint")
     ap.add_argument("--model_full", default="reranker.txt")
     ap.add_argument("--model_nocite", default="reranker_no_cite.txt")
     ap.add_argument("--eval_out", default=None)
@@ -538,8 +538,8 @@ def main():
         s1, gb, cov = eval_shortlists(
             val_arr, val_top, val_sc, pred, pair_index, max_papers=args.eval_papers
         )
-        print(f"  Stage-1 positives in top-{args.k}: {100*cov:.1f}%  (ceiling)")
-        print(f"  Stage-1  {s1}")
+        print(f"  First-pass positives in top-{args.k}: {100*cov:.1f}%  (ceiling)")
+        print(f"  First pass  {s1}")
         print(f"  Re-ranker {gb}")
         return {
             "stage1": s1,
@@ -575,7 +575,6 @@ def main():
         "elapsed_s": time.time() - t_all,
         "full": full,
         "no_cite_clues": no_cite,
-        # top-level copies of the product model so older readers still work
         "stage1": full["stage1"],
         "reranker": full["reranker"],
         "positive_in_shortlist": full["positive_in_shortlist"],

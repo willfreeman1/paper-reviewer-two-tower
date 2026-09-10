@@ -1,21 +1,13 @@
 """
-Feasibility spike, step 1: pull a sample of authors + their papers from OpenAlex.
+Pull Computer Science authors and their papers from OpenAlex.
 
-NOTE on a gotcha discovered while building this: OpenAlex has moved its primary
-classification system from "concepts" (old, filter format like C41008148) to a
-"domain > field > subfield > topic" hierarchy. The Authors endpoint does NOT
-support filtering by field directly (only by topics.id / topic_share.id, which
-are much narrower than a whole field). So the strategy is:
+The Authors endpoint cannot filter by field, so this:
 
-  1. Pull a moderate pool of Computer Science works (filter: topics.field.id,
-     has_abstract:true) to discover a pool of candidate author IDs.
-  2. Randomly select ~TARGET_AUTHORS of those IDs as "reviewer" candidates.
-  3. For each candidate, fetch their FULL works list directly via
-     author.id:<id> (not sample-limited) and keep only those with >=MIN_WORKS
-     papers in our year window. This gives a true (not sample-truncated)
-     profile per candidate.
-  4. Reconstruct abstracts from the inverted index, save everything, print
-     summary stats needed for the feasibility memo.
+  1. Pulls CS works (topics.field.id, has_abstract) to collect author IDs.
+  2. Samples those IDs as reviewer candidates.
+  3. Fetches each candidate's full works list and keeps people with enough
+     papers in the year window.
+  4. Rebuilds abstracts from OpenAlex's inverted index and writes JSONL.
 """
 
 import json
@@ -43,10 +35,10 @@ POOL_SIZE = 90000           # works pulled just to discover candidate author IDs
 TARGET_AUTHORS = 20000
 CANDIDATE_BUFFER = 55000    # try more than TARGET_AUTHORS since many will fail the >=MIN_WORKS filter
 MIN_WORKS = 5
-MAX_PAPERS_PER_AUTHOR = 25  # cap per-author profile size (mirrors "top_recent_pubs" pattern)
+MAX_PAPERS_PER_AUTHOR = 25  # cap per-author profile size
 YEAR_FROM = 2015
 SEED = 42
-MAX_PER_PAGE = 100          # current OpenAlex hard max (was 200 under the old docs -- fixed)
+MAX_PER_PAGE = 100          # OpenAlex page-size cap
 
 WORK_SELECT_FIELDS = (
     "id,title,abstract_inverted_index,publication_year,cited_by_count,"
@@ -54,28 +46,17 @@ WORK_SELECT_FIELDS = (
 )
 
 session = requests.Session()
-# Default HTTPAdapter caps the per-host connection pool at 10 -- too low for
-# our concurrent worker pool below (found while tuning throughput: initial
-# concurrent test only got ~2x speedup over sequential, far short of the
-# ~15x expected from overlapping ~250ms request latency across many workers).
+# Raise the per-host pool so concurrent workers are not stuck at 10 connections.
 _adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
 session.mount("https://", _adapter)
 session.mount("http://", _adapter)
 random.seed(SEED)
 
-# NOTE (found while planning the bigger pull, via a smoke test): the real
-# bottleneck is per-request network LATENCY (~250ms round-trip measured),
-# not our own request-delay throttle -- a single sequential loop only
-# achieves ~4 req/s regardless of how small REQUEST_DELAY is, since it waits
-# for each full response before sending the next request. OpenAlex's actual
-# hard limit is 100 req/s (confirmed via their docs, Sept 2026 -- the old
-# "10 req/s polite-pool" figure baked into REQUEST_DELAY below was stale,
-# pre-pricing-change info anyway). Fix: run requests CONCURRENTLY (thread
-# pool below) so many can be in flight at once, overlapping that latency,
-# while a shared rate limiter keeps the aggregate rate safely under 100/s.
-REQUEST_DELAY = 0.0  # per-thread pacing no longer needed; global limiter below handles it
+# OpenAlex allows up to 100 req/s. Sequential calls are latency-bound (~4/s);
+# overlap requests with a thread pool and a shared cap under that limit.
+REQUEST_DELAY = 0.0
 MAX_WORKERS = 20
-TARGET_RPS = 70  # aggregate cap across all worker threads, safe margin under the 100/s hard limit
+TARGET_RPS = 70
 
 
 class RateLimiter:
@@ -133,14 +114,8 @@ def reconstruct_abstract(inv_index):
 
 
 def discover_candidate_author_ids(pool_size=POOL_SIZE, target_candidates=CANDIDATE_BUFFER):
-    # NOTE (found while scaling this up): OpenAlex's "sample" param caps out
-    # at 10,000 -- separate from the per-page cap -- so it can't be used to
-    # discover a large candidate pool directly. Switched to cursor-based
-    # pagination (same pattern as fetch_author_works below) instead, which
-    # has no such cap. Tradeoff: cursor order isn't a true random sample
-    # (roughly ID order), so there's a theoretical bias toward whichever
-    # ingestion batches got lower IDs -- acceptable for a portfolio-scale
-    # pull, would want a real random sample for a production system.
+    # OpenAlex "sample" caps at 10,000 IDs, so use cursor pagination instead.
+    # Cursor order is not a true random sample.
     print(f"Scanning CS works (cursor-paginated) to discover candidate authors "
           f"(target: {target_candidates} unique IDs, scanning up to {pool_size} works)...")
     author_ids = set()
@@ -172,11 +147,7 @@ def discover_candidate_author_ids(pool_size=POOL_SIZE, target_candidates=CANDIDA
 
 
 def fetch_author_works(author_id, max_papers=MAX_PAPERS_PER_AUTHOR):
-    # BUG FIX (found during feasibility review): this used to omit the CS
-    # field filter, so authors discovered via a CS works pool still had their
-    # FULL cross-field publication history pulled in (only 31% of the
-    # resulting corpus was actually Computer Science). Apply the same field
-    # filter here as in discovery so the corpus stays CS-scoped end to end.
+    # Same CS field filter as discovery, so each author's list stays in-field.
     works = []
     cursor = "*"
     filt = f"author.id:{author_id},{CS_FIELD_FILTER},publication_year:>{YEAR_FROM - 1}"
@@ -237,12 +208,8 @@ def main():
     t_start = time.time()
 
     def checkpoint():
-        # NOTE: this used to rewrite the *entire* papers file from scratch on every
-        # call (open(..., "w") + loop over all_papers.values()). That made each
-        # checkpoint O(total papers so far), and since it's called every N candidates,
-        # the cost grew ~linearly over the run -> throughput decayed from ~28/s to
-        # ~4.7/s over the first 34 min on the big pull. Fix: only APPEND papers that
-        # haven't been written yet, so each checkpoint is O(new papers since last one).
+        # Append new papers only. Rewriting the whole papers file each
+        # checkpoint gets slower as the catalog grows.
         CHECKPOINT_FILE.write_text(json.dumps({
             "author_paper_ids": author_paper_ids,
             "processed_ids": list(processed_ids),
@@ -339,9 +306,6 @@ def main():
                     for au in (p.get("authorships") or [])
                     if au.get("author")
                 ],
-                # ORCID, when present -- a second, independent identity signal
-                # we can cross-check against the topic-coherence disambiguation
-                # filter later (not used yet, just captured for future use).
                 "author_orcids": {
                     au["author"]["id"]: au["author"].get("orcid")
                     for au in (p.get("authorships") or [])

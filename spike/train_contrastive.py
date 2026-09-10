@@ -1,23 +1,13 @@
 """
-Phase 1: contrastive fine-tuning from frozen SPECTER2, one run per
-ground-truth variant (authors / simcite). Identical setup between the two
-runs -- same base model, same LoRA config, same hyperparameters, same
-number of steps -- the ONLY difference is which training_pairs_*.jsonl file
-is used. That isolates the ground-truth choice as the one variable being
-tested (see BRIEF.md "Phase 1 -- Ground truth ablation").
+Contrastive fine-tuning from frozen SPECTER2, one run per label variant
+(authors / simcite). Same base model, LoRA config, hyperparameters, and
+step count — only the training_pairs_*.jsonl file changes.
 
-Approach: base SPECTER2 encoder weights stay frozen; add a small trainable
-LoRA adapter on top (fast, cheap, low overfitting risk on a ~60k-pair
-dataset -- full fine-tuning of all ~110M params would be overkill and
-slower for what's meant to be a fast baseline comparison). Loss: standard
-in-batch-negative contrastive loss (symmetric InfoNCE), same family as
-SPECTER2's/SimCSE's own training objective -- encode (anchor, positive)
-pairs, pull matching pairs together, push every other pair in the batch
-apart.
+SPECTER2 encoder weights stay frozen; a small LoRA adapter is trained.
+Loss is in-batch-negative contrastive (symmetric InfoNCE): pull matching
+(anchor, positive) pairs together, push other pairs in the batch apart.
 
-Run on GPU (see work_record.md for the Lambda GPU setup already used for
-embedding -- same pattern applies here, full fine-tune of a BERT-sized
-model over tens of thousands of pairs is impractical on CPU).
+Needs a GPU.
 """
 import argparse
 import json

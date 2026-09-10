@@ -1,15 +1,8 @@
 """
-Phase 1 decision step: score a fine-tuned (Authors or SimCite) adapter
-against BOTH real gold-standard datasets (CMU + LR-Bench), the same way the
-frozen SPECTER2/TF-IDF/BM25 baselines were already scored in
-cmu_gold_eval.py / lr_bench_eval.py. Deliberately does NOT touch our own
-OpenAlex-derived proxy labels for this decision -- scoring a model against
-the same label rule it was trained on would be circular (see BRIEF.md
-"Phase 1 -- Ground truth ablation").
-
-Reuses the exact same gold-set case-building code as the baseline scripts
-(imported directly) so results are apples-to-apples comparable to the
-frozen-SPECTER2 rows already in FEASIBILITY_MEMO.md.
+Score a fine-tuned (Authors or SimCite) SPECTER2 adapter on CMU and
+LR-Bench, using the same case-building code as cmu_gold_eval.py and
+lr_bench_eval.py. Does not score on the OpenAlex homemade key — that would
+be circular for a model trained on that key.
 """
 import argparse
 import json

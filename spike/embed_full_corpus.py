@@ -1,13 +1,8 @@
 """
-Phase 1 prep: embed the ENTIRE final corpus (papers_final.jsonl, ~290k papers)
-with off-the-shelf SPECTER2. Meant to run on GPU (Lambda) -- at ~3.4
-papers/sec measured on CPU this would take ~23 hours; on a GPU with a much
-bigger batch size it should take single-digit minutes.
+Embed papers_final.jsonl with off-the-shelf SPECTER2 (GPU recommended).
 
-Output: paper_embeddings_full.npy (float32, [N, hidden_dim]) +
-paper_embedding_ids_full.json (list of N paper IDs, same order as rows).
-These feed the SimCite pair-construction step (rank each paper's in-corpus
-citations by embedding similarity).
+Writes paper_embeddings_full.npy and paper_embedding_ids_full.json for
+SimCite pair construction.
 """
 import json
 import time
@@ -19,7 +14,7 @@ from adapters import AutoAdapterModel
 from transformers import AutoTokenizer
 
 DATA_DIR = Path(__file__).parent / "data"
-BATCH_SIZE = 128  # bump way up from the CPU spike's 32 -- GPU has the memory for it
+BATCH_SIZE = 128
 MAX_LENGTH = 512
 
 

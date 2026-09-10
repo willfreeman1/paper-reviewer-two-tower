@@ -1,30 +1,14 @@
 """
-Proxy-vs-gold check, part 3: run TF-IDF / SPECTER2 / BM25 against LR-Bench
-(RATE paper, Jan 2026) -- a SECOND, larger, independent real gold-standard
-dataset, complementing the CMU Gold Standard check in cmu_gold_eval.py.
+Score TF-IDF / SPECTER2 / BM25 on LR-Bench pairwise data.
 
-Note on format: the publicly released LR-Bench data is PAIRWISE (not the
-1-1,055 pointwise 1-5 BARS ratings described in the paper -- the authors'
-own README says pointwise data is still being released). Each record is a
-(anchor, positive, negative) triple where `positive` has a higher expertise
-rating than `negative` for the same anchor:
+The public LR-Bench release is pairwise (not the pointwise 1-5 ratings
+described in the paper). Each record is an (anchor, positive, negative)
+triple where `positive` has a higher expertise rating than `negative`:
 
-  - "paper_centric" (pc): anchor = one query paper. positive/negative = two
-    candidate REVIEWERS (each with their own paper-list profile). A good
-    method should score the query paper more similar to the positive
-    reviewer's profile than to the negative reviewer's profile.
-  - "reviewer_centric" (rc): anchor = one reviewer profile (paper list).
-    positive/negative = two candidate PAPERS. A good method should score the
-    positive paper more similar to the reviewer's profile than the negative
-    paper.
+  - paper-centric: one query paper, two reviewer profiles
+  - reviewer-centric: one reviewer profile, two candidate papers
 
-Both reduce to the same underlying comparison: one multi-paper "profile" vs
-two single "candidate" papers -- does the method prefer the higher-rated
-one? Metric: pairwise accuracy (% of comparisons where predicted similarity
-ranks the positive candidate above the negative one). This is the standard
-way to score preference/pairwise data like this, and is what RATE's own
-"paper-centric / reviewer-centric preference triplets" training signal is
-built from.
+Metric: pairwise accuracy (ties skipped).
 """
 import argparse
 import json
@@ -150,9 +134,7 @@ def eval_tfidf(cases):
 
 
 def eval_bm25(cases):
-    """Fairer (v2-style, per-candidate-max-paper) BM25 setup -- see the
-    note in cmu_gold_eval.py's eval_bm25_maxpaper for why this is used
-    instead of concatenating a whole profile into one giant query."""
+    """Candidate paper as the query; best BM25 score vs any profile paper."""
     from rank_bm25 import BM25Okapi
 
     unique = all_unique_papers(cases)

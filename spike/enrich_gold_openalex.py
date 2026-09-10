@@ -1,7 +1,7 @@
 """
-Look up each gold paper in OpenAlex (free academic database) so Stage 2
-can use the same extra facts we have on our catalog: field, topic, year,
-citation count, and the list of works it cites.
+Look up each gold paper in OpenAlex (free academic database) so the
+second-pass tree can use the same extra facts we have on the catalog:
+field, topic, year, citation count, and the list of works it cites.
 """
 from __future__ import annotations
 

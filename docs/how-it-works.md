@@ -221,16 +221,63 @@ stopped.
 
 ## Scripts (what lives in `spike/`)
 
+Every file in `spike/` is part of building the catalog, scoring the
+human quizzes, or training/scoring the two passes.
+
+**Catalog (OpenAlex → cleaned CS pool)**
+
 | Script | Role |
 |---|---|
 | `pull_openalex.py` | Pull papers and authors from OpenAlex |
+| `dedup_papers.py` | Merge reprint/published copies of the same work |
+| `filter_cs_only.py` | Keep papers whose primary field is computer science |
+| `disambiguation_check.py` | Flag likely merged author identities |
+| `apply_disambiguation_filter.py` | Drop those authors; write the final catalog files |
+| `embed_and_eval.py` | SPECTER2 fingerprints + a small catalog self-test |
+| `embed_full_corpus.py` | SPECTER2 fingerprints for the whole catalog |
+| `tfidf_selfrecall.py` | Same catalog self-test with word overlap |
+
+**Human quizzes and extra facts on those papers**
+
+| Script | Role |
+|---|---|
+| `extract_cmu.py` | Unpack the CMU zip into `spike/data/gold_cmu/` |
 | `cmu_gold_eval.py` | Word overlap / SPECTER2 / BM25 on the CMU 1–5 survey |
 | `lr_bench_eval.py` | Same methods on the LR-Bench A-vs-B quiz |
 | `eval_specter2_pooling.py` | How to combine a person’s many paper fingerprints |
-| `train_two_tower.py` | Train the first-pass add-on; catalog + human scores |
+| `collect_gold_papers.py` | Unique gold papers for OpenAlex lookup |
+| `enrich_gold_openalex.py` | Field / year / citations for those papers |
+| `fetch_gold_cited_works.py` | Bibliography records for the cite-all name list |
+| `eval_simcite_gold_agreement.py` | Do cited authors show up among the human 4–5s? |
+
+**Homemade citation key (SimCite) and topic/method tags**
+
+| Script | Role |
+|---|---|
+| `build_simcite_pairs.py` | Authors of similar cited papers → training pairs |
+| `build_simcite_weighted.py` | Same key with recency / topic / method weights |
+| `qwen_aspect_extract.py` | Topic / method / application tags (title + abstract) |
+| `qwen_setup.sh` | GPU environment for that tagger |
+| `fulltext_coverage_check.py` | How often a catalog paper has a free PDF |
+| `aspect_text_ablation.py` | Does extra PDF text change those tags? |
+
+**First pass, second pass, votes, and the SPECTER2 retraining try**
+
+| Script | Role |
+|---|---|
+| `tower_features.py` | What each paper / person looks like as numbers |
+| `build_tower_features.py` | Build those tables from the catalog |
+| `two_tower_model.py` | The small add-on on top of SPECTER2 |
+| `train_two_tower.py` | Train that add-on; catalog + human scores |
 | `train_reranker.py` | Train the second-pass tree on the catalog shortlist |
 | `eval_reranker_gold.py` | Score that tree on CMU and LR-Bench |
-| `eval_stage3_gold.py` | Language-model votes on CMU and LR-Bench |
+| `run_simcite_ablation.py` | Retrain on the weighted keys and score humans |
+| `stage3_committee.py` | Four-persona language-model votes |
+| `eval_stage3_gold.py` | Those votes on CMU and LR-Bench |
+| `build_training_pairs.py` | Same-author vs SimCite pairs to retrain SPECTER2 |
+| `train_contrastive.py` | Light SPECTER2 adapter training (needs a GPU) |
+| `eval_finetuned.py` | Score that adapter on CMU and LR-Bench |
+| `lambda_setup.sh` | GPU environment for embedding / contrastive training |
 
 A clone can download the CMU survey and re-run `cmu_gold_eval.py`.
 LR-Bench scoring expects two local JSON files this repo does not

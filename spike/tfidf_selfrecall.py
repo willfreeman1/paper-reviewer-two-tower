@@ -1,8 +1,7 @@
 """
-Same self-recall + hard-negative test as embed_and_eval.py, but using TF-IDF
-instead of SPECTER2 -- for the proxy-vs-gold "do different methods rank the
-same way" comparison. Uses the identical random selection logic/seed so the
-test authors / held-out papers / candidate pool match exactly.
+Same self-recall + hard-negative test as embed_and_eval.py, using word
+overlap (TF-IDF) instead of SPECTER2. Same random seed so the test
+authors, held-out papers, and candidate pool match.
 """
 import json
 import random

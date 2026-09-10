@@ -1,5 +1,6 @@
 """
-Train Stage 1 + Stage 2 on each weighted SimCite key and score gold.
+Train the first-pass add-on and the second-pass tree on each weighted
+SimCite key, then score the human quizzes.
 
 Does not overwrite vanilla two_tower.pt / reranker.txt.
 """
@@ -11,9 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PY = ROOT / ".venv" / "Scripts" / "python.exe"
-if not PY.exists():
-    PY = Path(sys.executable)
+PY = Path(sys.executable)
 SPIKE = Path(__file__).parent
 DATA = SPIKE / "data"
 TOWER = DATA / "tower"

@@ -1,12 +1,9 @@
 """
-Score Stage 3 (four-persona committee) on CMU + LR-Bench.
+Score the four-persona committee on CMU + LR-Bench.
 
-Trained-on: nothing — the language model is used as-is.
-Scored-on: the same human pairs as Stage 1/2 gold eval.
-
-Does not retrain the Stage 2 tree. Catalog-scale committee labels for
-that tree would be thousands of dollars; we only buy votes on gold
-until those votes beat frozen SPECTER2.
+The language model is used as-is (no training). Does not retrain the
+second-pass tree. Votes are bought only for the human quizzes, not the
+full catalog.
 """
 from __future__ import annotations
 

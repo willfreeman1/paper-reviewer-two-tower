@@ -1,14 +1,8 @@
 """
-Feasibility spike, step 2c: apply the coherence-score disambiguation filter
-decided on in disambiguation_check.py (drop authors below 0.5 topic
-coherence -- likely merged/mixed identities) to produce the final author set
-for training/eval.
+Apply the topic-coherence disambiguation filter from disambiguation_check.py
+(drop authors below 0.5 coherence — likely merged identities).
 
-Note: only the AUTHOR list is trimmed, not the papers pool. A paper by a
-"merged identity" author is still a real CS paper -- it's just that specific
-author profile's ground-truth reviewer/authorship signal that's unreliable,
-so it's fine to keep those papers in the general candidate pool while
-dropping them as a reviewer/query profile.
+Only the reviewer/author list is trimmed. Papers stay in the pool.
 """
 import json
 from collections import Counter

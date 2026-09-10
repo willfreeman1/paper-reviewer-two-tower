@@ -1,7 +1,6 @@
 """
-Feasibility spike, step 3: embed all papers with off-the-shelf SPECTER2,
-run self-recall@k for held-out (author, paper) pairs, and a hard-negative
-sanity check.
+Embed papers with off-the-shelf SPECTER2, then run self-recall@k on
+held-out (author, paper) pairs and a hard-negative sanity check.
 """
 import json
 import random
@@ -19,7 +18,7 @@ N_TEST_AUTHORS = 200
 N_HARD_NEG_QUERIES = 20
 BATCH_SIZE = 32
 MAX_LENGTH = 512
-POOL_SIZE = 3000  # CPU inference budget for the spike; still "thousands" scale
+POOL_SIZE = 3000
 
 random.seed(SEED)
 np.random.seed(SEED)

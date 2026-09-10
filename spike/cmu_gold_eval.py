@@ -1,12 +1,9 @@
 """
-Proxy-vs-gold check, part 2: run SPECTER2 and TF-IDF against the REAL
-human-labeled CMU Gold Standard dataset (self-reported expertise ratings),
-and compare the resulting leaderboard to the OpenAlex self-recall leaderboard.
+Score SPECTER2, TF-IDF, or BM25 on the CMU gold set (self-reported 1-5
+expertise).
 
-For each participant: build a profile from their own papers (semantic
-scholar profile), score their up to 10 rated candidate papers, and compute
-the rank correlation (Spearman) between predicted similarity and their
-self-reported expertise (1-5). Average across participants.
+For each participant: profile from their papers, score the rated candidates,
+Spearman correlation vs their ratings. Average across participants.
 """
 import argparse
 import csv
@@ -133,10 +130,7 @@ def _build_global_bm25(cases):
 
 
 def eval_bm25(cases):
-    """v1: query = ALL of a reviewer's papers concatenated into one giant
-    query, scored against every candidate. This is the naive approach --
-    kept for comparison against eval_bm25_maxpaper below, since a long,
-    multi-topic query is a poor fit for BM25 (built for short queries)."""
+    """Concatenated-profile BM25 (poor fit: BM25 expects a short query)."""
     add_paper, corpus_tokens, BM25Okapi = _build_global_bm25(cases)
 
     case_positions = []
@@ -161,13 +155,7 @@ def eval_bm25(cases):
 
 
 def eval_bm25_maxpaper(cases):
-    """v2 (fairer test, closer to how BM25 is actually meant to be used):
-    for each CANDIDATE paper, use its own (short, coherent, single-paper)
-    text as the query -- scored against the whole shared corpus -- then take
-    the MAX score among the reviewer's own profile-paper positions. This
-    answers "does the reviewer have at least one paper whose language
-    closely echoes this candidate," instead of averaging a whole messy,
-    multi-topic history into one query."""
+    """Candidate paper as the query; best BM25 score vs any profile paper."""
     add_paper, corpus_tokens, BM25Okapi = _build_global_bm25(cases)
 
     case_positions = []

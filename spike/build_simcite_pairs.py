@@ -1,23 +1,15 @@
 """
-Phase 1: build SimCite ground-truth training pairs.
+Build SimCite training pairs.
 
-For each paper P with citations that land on other papers in our own corpus
-(checked for viability in simcite_feasibility_check.py -- ~49% of papers
-have >=1 usable citation), rank those citations by SPECTER2 embedding
-similarity to P and take the top-min(10, available) as "similar cited
-papers." The authors of those papers become positive (paper, author) pairs
-for P under the SimCite definition -- an alternative to "Authors" (where
-P's own authors are the positives).
+For each paper P, rank in-catalog citations by SPECTER2 similarity to P
+and take the top min(10, available). Those papers' authors are positives
+for P.
 
-Requires: spike/data/paper_embeddings_full.npy + paper_embedding_ids_full.json
-(built by embed_full_corpus.py, run on GPU -- see work_record.md).
+Requires paper_embeddings_full.npy and paper_embedding_ids_full.json from
+embed_full_corpus.py.
 
-Output: spike/data/simcite_pairs.json -- {paper_id: [{"author_id":...,
-"cited_paper_id":..., "similarity":...}, ...]}, one entry per paper that has
->=1 SimCite positive (roughly half the corpus; the other half simply won't
-appear as a key -- callers/trainers should treat missing = no SimCite
-signal for that paper, and either skip it for this objective or fall back
-to Authors labels).
+Writes simcite_pairs.json. Papers with no usable in-catalog citation are
+omitted; trainers should treat a missing key as no SimCite signal.
 """
 import json
 import time

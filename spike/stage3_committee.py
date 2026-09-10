@@ -1,11 +1,11 @@
 """
-Stage 3: four-persona committee on one paper + one reviewer profile.
+Four-persona committee on one paper + one reviewer profile.
 
 One API call returns four 1-5 scores (area chair, topics, method,
 application). Mean is the committee score. Resume-safe cache.
 
-This is the last cut only — in the full product it would run on Stage 2's
-top 15. On the human tests the "shortlist" is already the gold candidates.
+On the human tests the list is already the gold candidates. The original
+plan (votes only on the last 15 names from the tree) was not run.
 """
 from __future__ import annotations
 

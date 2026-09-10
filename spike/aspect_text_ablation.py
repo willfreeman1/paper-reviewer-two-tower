@@ -6,8 +6,7 @@ For ~100 papers that already have a free arXiv PDF:
   B) title + abstract + introduction
   C) title + abstract + full extracted PDF text (capped)
 
-Uses gpt-5-mini with minimal reasoning so we can run it quickly on OpenAI
-without standing up a GPU. Cost should stay well under $2.
+Uses gpt-5-mini with minimal reasoning (OpenAI API, no GPU).
 """
 import io
 import json

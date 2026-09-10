@@ -15,7 +15,7 @@ Reviewer side (one row per person, plus their paper list):
     how many distinct subfields (diversity), most-common subfield
 
 Qwen topic/method/application tags are intentionally NOT here — those are
-pairwise (paper vs reviewer) and belong in the Stage-2 re-ranker.
+pairwise (paper vs reviewer) and belong in the second-pass tree.
 """
 from __future__ import annotations
 

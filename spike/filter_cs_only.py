@@ -1,10 +1,9 @@
 """
-Feasibility spike, step 2b (bug fix): the original pull filtered the
-*author-discovery* pool to Computer Science works, but fetch_author_works()
-then pulled each kept author's FULL recent publication list with no field
-filter -- so the corpus ended up only 31% Computer Science by primary topic.
-This script filters the already-pulled data down to CS-only, no new API
-calls needed.
+Keep Computer Science papers only.
+
+The original pull discovered authors from CS works, then fetched each
+author's full recent list with no field filter, so non-CS papers leaked in.
+This trims the already-pulled files. No new API calls.
 """
 import json
 from pathlib import Path
@@ -16,12 +15,9 @@ def is_cs_paper(p):
     topics = p.get("topics") or []
     if not topics:
         return False
-    # Require the PRIMARY topic (topics[0], OpenAlex's main/best-guess topic
-    # for this paper) to be tagged Computer Science. An earlier version used
-    # "any topic tagged CS", which let in papers where CS was only a minor/
-    # secondary tag (found via aspect-extraction dry run spot-check: ~33% of
-    # the "CS-only" corpus was CS-tagged only secondarily, e.g. a social
-    # media marketing paper that had one loosely-related CS/AI subtopic).
+    # Primary topic only. "Any topic tagged CS" lets in papers where CS is
+    # a side tag (for example a marketing paper with one loosely related
+    # AI subtopic).
     return topics[0].get("field") == "Computer Science"
 
 

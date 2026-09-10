@@ -174,7 +174,7 @@ def main():
         "notes": {
             "paper_citations": "stored only to sum onto the reviewer (seniority). not a paper-tower input.",
             "time_weight": "weight=0.5**((T-year)/half_life); papers with year>T get 0.",
-            "qwen_aspects": "not included; pairwise Stage-2 feature.",
+            "qwen_aspects": "not included; pairwise second-pass feature.",
         },
     }
     (TOWER_DIR / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")

@@ -1,10 +1,9 @@
 """
-P2R-style Topics / Methodologies / Applications extraction with self-hosted
-Qwen3 (title + abstract only). Supports a small smoke test and a resumable
-full-corpus run.
+Topic / method / application tags with self-hosted Qwen3 (title + abstract).
+Supports a small smoke test and a resumable full-catalog run.
 
-Qwen3 thinking mode is turned OFF -- we want a short JSON answer, not a
-hidden reasoning dump.
+Thinking mode is off — we want a short JSON answer, not a hidden
+reasoning dump.
 """
 import argparse
 import json

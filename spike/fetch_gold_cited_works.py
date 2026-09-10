@@ -30,8 +30,7 @@ from pull_openalex import (  # noqa: E402
 )
 from tower_features import DATA_DIR  # noqa: E402
 
-# Paid OpenAlex key is often out of daily credit; the free polite
-# pool (mailto only) is enough for ID lookups.
+# Uses the free polite pool (mailto) for ID lookups.
 API_KEY = None
 OUT_PATH = DATA_DIR / "gold_cited_works.jsonl"
 SELECT = (

@@ -1,7 +1,6 @@
 """
-Feasibility spike, step 2 (data cleaning): dedupe papers that are the same
-underlying work indexed multiple times (preprint/published/conference
-versions) under different OpenAlex IDs. Cheap, no API calls needed.
+Dedupe papers that are the same work under different OpenAlex IDs
+(preprint vs published, etc.). No API calls.
 """
 import json
 import re

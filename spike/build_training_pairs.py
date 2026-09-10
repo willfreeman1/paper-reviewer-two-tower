@@ -1,27 +1,14 @@
 """
-Phase 1: build the actual (anchor_paper, positive_paper) training pairs for
-both ground-truth variants. Both use the SAME pair FORMAT (two paper texts
-that should end up close together) so the exact same training script can
-run either one -- only the pair SOURCE differs, which is the whole point of
-the ablation.
+Build (anchor_paper, positive_paper) training pairs for two label variants.
+Same pair format so train_contrastive.py can run either source.
 
-Authors variant: anchor and positive are two different papers by the same
-author. Straightforward -- this is just "co-authorship implies similarity."
+Authors: two different papers by the same author.
 
-SimCite variant: anchor = paper P; positive = a DIFFERENT paper (NOT the
-cited paper itself) by an author who wrote one of P's top-similar cited
-papers. Important: we deliberately do NOT use (P, cited_paper) as the pair
--- that pairing was chosen BY embedding similarity in build_simcite_pairs.py,
-so training on it directly would be circular (telling the model to move
-closer two things it already thinks are close, using the same frozen model
-that did the choosing -- zero new signal). Using a DIFFERENT paper by that
-same author gives a genuinely new, non-circular training signal: "this
-paper is relevant to this author's broader body of work," not just to the
-one paper we already flagged as similar.
+SimCite: paper P paired with a *different* paper by an author of one of P's
+similar cited papers — not (P, cited_paper) itself, because that pair was
+already chosen by SPECTER2 similarity in build_simcite_pairs.py.
 
-Caps pairs per author to avoid a few prolific authors dominating the set,
-and caps total pairs per variant so training stays fast (this phase is
-meant to be cheap/fast -- see BRIEF.md "v1 scope").
+Caps pairs per author and total pairs per variant.
 """
 import json
 import random
